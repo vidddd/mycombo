@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+/*----------- Detectar mobile ----------------*/
+isMobile = {
+        Android: function() {
+            return navigator.userAgent.match(/Android/i);
+        },
+        BlackBerry: function() {
+            return navigator.userAgent.match(/BlackBerry/i);
+        },
+        iOS: function() {
+            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        },
+        Opera: function() {
+            return navigator.userAgent.match(/Opera Mini/i);
+        },
+        Windows: function() {
+            return navigator.userAgent.match(/IEMobile/i);
+        },
+        any: function() {
+            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+        }
+};
+DesactivarParallax="NO";
+DesactivarSprite="NO";
+/*------------------ fin detectar mobile ------------------------- */
+$(document).ready(function() {
+	if(isMobile.any()) {
+		DesactivarParallax="SI";
+		DesactivarSprite="SI";
+	}
+	animacionSPRITE();
+	contador=1;
+	entrada = $('#entrada');
+	TweenMax.to($('#login'), 0, {scale:0.5, opacity:0, delay:0});
+	TweenMax.to($('#login'), 0.3, {opacity:1, delay:0.1});
+	TweenMax.to($('#login'), 0.6, {scale:1, delay:0.1,ease:Power3.easeInOut});
+	TweenMax.to($('#habitacion'), 0, {scale:1, delay:0});
+	iniciarParallax();
+	/*---------*/
+	{% if tienec == '1' %}
+		verGracias();
+	{% endif %}
+});
+</script>
+<form><input type="hidden" name="totalc" id="totalc" class="totalc" value="{{ totalc }}" />
+<input type="hidden" name="totalcr" id="totalcr" class="totalcr" value="{{ totalcr }}" />
+</form>
+	<section id="entrada">
+		<article id="login">
+			<p style="text-align: center"><img src="images/mcd_m.png"></p>
+			<p>Tus amigos son lo más importante para ti. Aunque cada uno tiene sus "cosillas" y a veces surgen diferencias entre vosotros.</p>
+			<p>Por eso <strong>McDonald's</strong><sup>&reg;</sup> ha creado el <strong>contrato MyCombo</strong> entre amigos, el primer contrato que fija unas reglas para que la amistad sea más fácil.</p>
+			<p>Sube las reglas que no pueden faltar en tu grupo de amigos, y que aparecerán en tu <strong>contrato MyCombo</strong>. Podrás ganar un año de <strong>MyCombo</strong> gratis para ti y tus amigos.</p>
+			<p><span class="btn" id="btn_entrar" onClick="document.location.href='{{ loginurl }}'"></span></p>
+		</article>
+	</section>
+	<section id="habitacion">
+		<article id="capa2" data-depth="0.40"></article>
+		<article id="capa1" data-depth="0.42">
+			<div id="cuadro" class="btn" onClick="VerVotos();gtag('event', '2_Votar_Clausulas');" onMouseOver="reproducirSonido('luz');" onMouseOut="pararSonido('luz');">
+				<div class="mipopup">
+					<div class="pico"><img src="images/pico_arriba.png" ></div>
+					<div class="textopopup">Votar Cláusulas</div>
+				</div>
+			</div>
+			<div id="columna" class="btn">
+				<!--<div class="mipopup">
+					<div class="pico"><img src="images/pico_arriba.png" ></div>
+					<div class="textopopup">Premiados</div>
+				</div>-->
+			</div>
+			<div id="maquina" class="btn" onClick="Redactar();gtag('event', '2_Redactar_Clausulas');"  onMouseOver="reproducirSonido('maquina');" onMouseOut="pararSonido('maquina');">
+				<div class="mipopup">
+					<div class="pico"><img src="images/pico_arriba.png" ></div>
+					<div class="textopopup">Redactar Cláusulas</div>
+				</div>
+			</div>
+			<div id="television" class="btn" onClick="VerVideo();gtag('event', '2_Video');" onMouseOver="reproducirSonido('tv');" onMouseOut="pararSonido('tv');">
+				<div class="mipopup">
+					<div class="pico"><img src="images/pico_arriba.png" ></div>
+					<div class="textopopup">Ver Video</div>
+				</div>
+			</div>
+			<div id="contrato" class="btn"  onClick="VerMiContrato();gtag('event', '2_Contrato');" >
+				<div class="mipopup">
+					<div class="pico"><img src="images/pico_arriba.png" ></div>
+					<div class="textopopup">Contrato</div>
+				</div>
+			</div>
+		</article>
+		<article id="capa3" style="display: none">
+			<img src="images/mobile_home1.jpg" id="mobile1" class="mobileGrande" onClick="VerMiContrato();gtag('event', '2_Contrato');" >
+			<img src="images/mobile_home2.jpg" id="mobile2" class="mobileNormal" onClick="Redactar();gtag('event', '2_Redactar_Clausulas');" >
+			<img src="images/mobile_home3.jpg" id="mobile3" class="mobileNormal" onClick="VerVotos();gtag('event', '2_Votar_Clausulas');" >
+			<img src="images/mobile_home4.jpg" id="mobile4" class="mobileNormal" >
+			<img src="images/mobile_home5.jpg" id="mobile5" class="mobileNormal" onClick="VerVideo();gtag('event', '2_Video');" >
+		</article>
+	</section>
+	<section id="redactar" class="oculto">
+		<article id="textos">
+			<div class="cerrar" onClick="CerrarRedactar();">X</div>
+				<div id="formulario"><div id="izq">
+					<div class="arriba">
+						<h2>Redacta tus cláusulas</h2>
+						<p class="parrafodestacado">Dinos qué estarías dispuesto a hacer<br>  por tus amigos o lo que te gustaría<br> que ellos hicieran por ti.</p>
+						<p class="solomobile"><span onClick="mostrarSugerencias();">¿Te has quedado en blanco?</span></p>
+					</div>
+					<div class="errorm" style="display:none;">
+						Uy, tu cláusula est&aacute; vac&iacute;a.<br/>Escr&iacute;bela para poder enviarla.
+					</div>
+					<div class="abajo">
+						<form name="form1" id="form1" action="index.php" method="post" onsubmit="validateForm(); return false;">
+						<textarea placeholder="- Cláusula 1, " maxlength="280" id="clausula1" class="clausula miclausula"></textarea>
+						<textarea placeholder="- Cláusula 2, " maxlength="280" id="clausula2" class="clausula miclausula"></textarea>
+						<textarea placeholder="- Cláusula 3, " maxlength="280" id="clausula3" class="clausula miclausula"></textarea>
+						<textarea placeholder="- Cláusula 4, " maxlength="280" id="clausula4" class="clausula miclausula"></textarea>
+						<textarea placeholder="- Cláusula 5, " maxlength="280" id="clausula5" class="clausula miclausula"></textarea>
+						<p class="checklegal"><input type="checkbox" name="bases" id="bases"> Acepto los <a href="#" target="_blank">términos legales</a> y la <a href="https://www.mcdonalds.es/cookies" target="_blank">política de privacidad</a>.</p>
+						<input type="submit" onclick="gtag('event','Enviar');" value="Enviar">
+						</form>
+					</div>
+				</div>
+				<div id="dch">
+					<div class="arriba">
+					<h2>¿Te has quedado en blanco?</h2>
+					<p class="parrafodestacado"> Algunas <span class="tachado">buenas</span> ideas...</p>
+					</div>
+					<div class="abajo">
+						<div class="ejemplo">- Nunca más dirás que estás llegando<br> si no has salido ni de la ducha.</div>
+						<div class="ejemplo">- Prohibido hablar de tu ex si<br> ya han pasado más de 6 meses. A partir de las<br> 2:00 a.m. será motivo de castigo.</div>
+						<div class="ejemplo">- No nos burlaremos de ningún coche.<br> Mientras tenga volante, ruedas y se<br> mueva, será el coche oficial de los viajes.</div>
+						<div class="ejemplo">- Exámenes, trabajo, novios, familia<br> y mascotas no servirán nunca como excusas para<br> no salir. “Me duele la cabeza” tampoco.</div>
+						<div class="ejemplo">- Lo que se envíe por el grupo de<br> madrugada, se queda en el grupo. Fotos, videos<br> y audios especialmente.</div>
+						<span onClick="CerrarEjemplos();" class="solomobile">Cerrar</span>
+					</div>
+				</div>
+			</div>
+			<div id="gracias" style="display: none;">
+				<h1>¡Gracias por tus cláusulas!</h1>
+				<p>Estamos revisándolas para poder incluirla en tu Contrato MyCombo.</p>
+				<p>Mientras tanto, puedes ver las que ya se han publicado<br> y votar las que más te gusten. Las cláusulas más votadas ganarán<br> un año de MyCombo gratis para todo el grupo de amigos.</p>
+				<p><span class="vermas" onClick="vermas();gtag('event', '3_Clausulas_Ver_Mas');">Ver más</span></p>
+			</div>
+		</article>
+	</section>
+	<section id="videoplayer" class="oculto">
+		<article id="contenedorvideo">
+		<div class="cerrar" onClick="CerrarVideo();">X</div>
+		</article>
+	</section>
+	<section id="micontrato" class="oculto">
+		<div class="cerrar" onClick="CerrarMiContrato();">X</div>
+		<article>
+			<p>Nuestro notario Leopoldo Rueda<br> está firmando tu <strong>Contrato MyCombo</strong>.<br>
+			Pronto lo podrás tener, con su firma<br> y todas tus reglas, para acabar<br> oficialmente con esas cosillas entre amigos.</p>
+			<p>Y atento, porque también sabrás si tú<br> y tus amigos habéis ganado un año<br> de <strong>MyCombo</strong> gratis.</p>
+		</article>
+	</section>
+	<section id="votaciones" class="oculto">
+		<div class="cerrar" onClick="CerrarVotos();">X</div>
+		<article id="votosa">
+			<div id="flechaizq" onClick="mover('izq');gtag('event', '4_Nav_Izquierda');"><img src="images/flecha_izq.png"></div>
+			<div id="flechadch" onClick="mover('dch');gtag('event', '4_Nav_Derecha');"><img src="images/flecha_dch.png"></div>
+			<div id="carrusel">
+				{% for clau in clausulas %}
+				<div class="item" id="{{ clau.id }}">
+					<div class="texto" rel="{{ clau.clausula | raw }}" onClick="AbrirClausulaGrande('{{ clau.id }}');">{{ clau.clausula|slice(0,100) | raw }} <br><br><strong>Leer más...</strong></div>
+					<span {% if clau.vid != NULL %}{% else %}onClick="votar('{{ clau.id }}');gtag('event', '4_Voto');"{% endif %} class="voto {% if clau.vid != NULL %}yavotado{% endif %}">{% if clau.vid != NULL %}VOTADO{% else %}VOTAR{% endif %}</span>
+				</div>
+				{% endfor %}
+			</div>
+		</article>
+		<article id="rankinga" style="display:none;">
+				<div id="flechaizq" onClick="mover2('izq');gtag('event', '4_Nav_Izquierda');"><img src="images/flecha_izq.png"></div>
+				<div id="flechadch" onClick="mover2('dch');gtag('event', '4_Nav_Derecha');"><img src="images/flecha_dch.png"></div>
+				<div id="carrusel2">
+				{% for clau in ranking %}
+				<div class="item" id="r{{ clau.id }}">
+					<div class="texto" rel="{{ clau.clausula | raw }}" onClick="AbrirClausulaGrande('{{ clau.id }}');"><p class="rat">{{ loop.index }}# </p>{{ clau.clausula|slice(0,100) | raw }} <br><br><strong>Leer más...</strong></div>
+					<span {% if clau.vid != NULL %}{% else %}onClick="votar('{{ clau.id }}');gtag('event', '4_Voto');"{% endif %} class="voto {% if clau.vid != NULL %}yavotado{% endif %}">{% if clau.vid != NULL %}VOTADO{% else %}VOTAR{% endif %}</span>
+				</div>
+				{% endfor %}
+			</div>
+		</article>
+				<a href="#" class="ranking" onclick="ranking();gtag('event','Enviar');">VER RANKING</a>
+					<a href="#" class="votosl" onclick="votos()" style="display:none;">VER TODAS LAS CLÁUSULAS</a>
+		<section id="contenedorClausula" class="oculto">
+			<div class="clausulaGrande">
+				<div class="cerrar" onClick="CerrarClausula();">X</div>
+				<div class="textoClausula">
+					<p class="eltexto"></p>
+					<span class="votar" rel="" onClick="votarGrande();gtag('event', '4_Voto');">VOTAR</span>
+				</div>
+			</div>
+		</section>
+	</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="wrapper">
+	<div id="cabecera"><img src="{{ URL }}images/logos.png" /></div>
+<div id="galeria" class="pagina" style="display:">
+  <div class="textos">
+    <h1>Votar cláusulas</h1>
+    <p>Vota por tus cláusulas favoritas para el mejor bla bla bla bla bla<br> bla bla bla bla haciendo click sobre el icono de LIKE!</p>
+  </div>
+  <div class="galeria">
+		{% for clau in clausulas %}
+    <div class="item" id="clausula_00001" onClick="votar('clausula_00001');">
+      <img src="images/like.jpg" class="normal imagen">
+      <p>"{{ clau.clausula }}"</p>
+      <p class="nombre">Clásula Nº31235451 por <u>{{ clau.name }}</u><br><a class="compartir" href="#">Compartir</a></p>
+    </div>
+		{% endfor %}
+  </div>
+  <div class="paginado">
+    <img src="images/btn_izq.png" class="izq"><span class="numeros">1 / 2 / 3 / 4 / 5</span><img src="images/btn_dch.png" class="dch">
+  </div>
+  </div>
+  <div id="pie"><a href="#">Ver bases legales de participación</a></div>
+  </div>
+{% endblock %}

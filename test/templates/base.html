@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Contrato MyCombo</title>
+<meta name="viewport" content="width=1080px, user-scalable=no">
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,500,700" rel="stylesheet">
+<link href="css/estilos.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+<script src="js/minified/plugins/CSSPlugin.min.js"></script>
+<script src="js/minified/easing/EasePack.min.js"></script>
+<script src="js/minified/TweenMax.min.js"></script>
+<script src="js/jquery-2.2.3.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79453141-8"></script>
+<meta property="og:image"  content="https://contratomycombo.com/images/compartir.jpg" />
+<meta name="twitter:image" content="https://contratomycombo.com/images/compartir.jpg">
+<script>
+	$(window).load(function() {
+			$('#preloader').fadeOut(100);
+			/*$('body').css({'overflow':'visible'});*/
+	});
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-79453141-8');
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '547461588987855');
+fbq('track', 'PageView');
+</script>
+<noscript>
+<img height="1" width="1" src="https://www.facebook.com/tr?id=547461588987855&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+</head>
+<body>
+<div id="preloader">
+    <div id="loader"><img src="images/loader.gif" ></div>
+</div>
+	<div id="mimascara">
+		{% block content %}
+		{% endblock %}
+		<div id="botonaudio" onClick="PararReproducirMusica();">
+			<div id="nota" class="desactivado"><img src="images/musica.png"></div>
+			<div id="selector" class="desactivado"><img src="images/botonsonido.png"></div>
+			<div id="conmutador" class="desactivado"></div>
+		</div>
+	<audio src="audio/music_loop.mp3" id="musica" play="false" loop preload="auto"></audio>
+	<audio src="audio/luz.mp3" id="audio_luz" play="false" preload="auto"></audio>
+	<audio src="audio/maquinaescribir.mp3" id="audio_maquina" play="false" loop preload="auto"></audio>
+	<audio src="audio/puerta.mp3" id="audio_puerta" play="false" preload="auto"></audio>
+	<audio src="audio/tv.mp3" id="audio_tv" play="false" loop preload="auto"></audio>
+		<footer>
+		Todos los derechos reservados McDonalds 2018 | <a href="https://www.mcdonalds.es/cookies" target="_blank" onclick="gtag('event', '2_Footer_Privacidad');">Políticas de privacidad</a> | <a href="https://contratomycombo.com/BasesLegalesConcursoCONTRATOMYCOMBO.pdf" target="_blank" onclick="gtag('event', '2_Footer_Bases');">Bases legales</a>
+		<div id="compartir">Compartir: <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//contratomycombo.com" onclick="gtag('event', '2_Footer_Compartir_Facebook');" target="_blank">Facebook</a> | <a href="https://twitter.com/home?status=https%253A//contratomycombo.com" target="_blank" onclick="gtag('event', '2_Footer_Compartir_Twitter');">Twitter</a></div>
+		</footer>
+	</div>
+	<div id="politica_cookies">
+		<div class="textolegal">Utilizamos cookies propias y de terceros para mejorar nuestros servicios, personalizar y analizar sus hábitos de navegación y mostrarle publicidad relacionada con sus preferencias.<br>Si continúa navegando, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información de cookies <a href="https://www.mcdonalds.es/cookies" target="_blank">aquí</a></div>
+		<div class="botones">
+			<a onclick="aceptar_cookies()" href="#">Sí, estoy de acuerdo</a>
+			<a href="https://www.mcdonalds.es/cookies" target="_blank">Más información</a>
+		</div>
+	</div>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+AuthGroupFile /dev/null
+AuthType Basic
+AuthUserFile /home/mycombocom/domains/contratomycombo.com/.htpasswd/public_html/.htpasswd
+AuthName "Private"
+require valid-user
+ErrorDocument 401 "Unauthorized Access"
